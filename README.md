@@ -1,6 +1,6 @@
 Assignment: Clone a financial planning calculator with React:
 
-* Calculator Cloned:
+Calculator Cloned:
 - First-Year Baby Costs Calculator
 https://www.babycenter.com/baby-cost-calculator
 
