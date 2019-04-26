@@ -1,0 +1,30 @@
+.oneTimeCosts {
+    text-align: center;
+}
+
+.weChecked {
+    font-size: 17px;
+}
+
+.itemList {
+    list-style: none;
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+}
+
+.itemList li {
+    display: inline-block;
+}
+
+.listItem {
+    font-size: 15px;
+    margin: 10px;
+}
+
+
+.threeColumns {
+    columns: 3;
+    -webkit-columns: 3;
+    -moz-columns: 3;
+}

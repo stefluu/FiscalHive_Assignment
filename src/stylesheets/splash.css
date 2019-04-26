@@ -1,0 +1,35 @@
+.splashDiv {
+    margin-top: 8%;
+    width: 50%;
+    background: #d1e1f9;
+    background: linear-gradient(to bottom right, #6b8fc4, #d1e1f9, white);
+    border: 2px solid teal;
+    border-radius: 20px;
+    padding: 20px;
+    color: white;
+}
+
+h1 {
+    border: 1px solid white;
+    background: linear-gradient(to bottom right, white, transparent);
+    border-radius: 5px;
+    width: 50%;
+    margin: auto;
+    color: teal;
+    text-align: center;
+}
+
+p {
+    color: #1b3760;
+    font-size: 20px;
+}
+
+.getStarted {
+    background: #70c7d1;
+    color: white;
+    border-radius: 5px;
+    width: 200px;
+    height: 35px;
+    font-size: 15px;
+    font-weight: bold;
+}

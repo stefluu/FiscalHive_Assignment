@@ -1,0 +1,28 @@
+
+/* for all buttons */
+.buttons{
+  display: flex;
+  justify-content: center;
+}
+
+.formButtons{
+    background: #70c7d1;
+    color: white;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0px 7px 0px 7px;
+}
+
+.goToDetailed {
+    width: 200px; 
+    height: 35px;
+    font-size: 14px;
+}
+
+.startOver {
+    margin-top: 75px;
+    width: 180px;
+}

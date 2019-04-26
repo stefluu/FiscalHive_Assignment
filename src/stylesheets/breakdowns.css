@@ -1,0 +1,66 @@
+
+.breakdown {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0px 20px 0px;
+    border: 1.5px solid teal;
+    height: 300px;
+    background: #e2ecfa;
+    border-radius: 5px;
+    margin: 20px;
+    box-shadow: 5px 8px 10px grey;
+}
+
+.breakdownTitle {
+    color: teal;
+    font-weight: bold;
+    background: linear-gradient(to bottom right, lightgrey, whitesmoke, transparent);
+    margin: 12px 0px 12px 0px;
+    width: 99.5%;
+    padding: 5px 0px 5px 0px;
+}
+
+.breakdown div:first-of-type{
+    padding: 0px 20px 0px 20px;
+}
+
+#oneTimeTitle {
+    margin: 12px 0px 8px 0px;
+}
+
+.breakdown ul {
+    list-style: none;
+    padding-left: 0px;
+    margin-top: 0px;
+}
+
+.breakdown li {
+    margin: 3px 0px 3px 0px;
+}
+
+.breakdownLiDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 15px;
+}
+
+.breakdownLiDiv div:first-of-type {
+    margin: 0px 70px 0px 0px;
+    padding: 0px;
+}
+
+.breakdownLiDiv div:last-of-type{
+    margin: 0px 0px 0px 70px;
+}
+
+.oneTimeBreakdown li {
+    margin: 16px 0px 16px 0px;
+}
+
+.breakdown h4{
+    color: #08738c;
+    font-size: 20px;
+}

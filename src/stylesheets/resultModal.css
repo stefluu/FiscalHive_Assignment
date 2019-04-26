@@ -1,0 +1,33 @@
+.resultModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align:center;
+    background: #d1e1f9;
+    border-radius: 5px;
+    margin: 20px;
+    padding: 20px;
+}
+
+.resultModalh4Container {
+    background: linear-gradient(to bottom right, #89a8d5, transparent);
+    width: 88%;
+    height: 80px;
+    margin: 15px 0px 15px 0px;
+    border-radius: 5px;
+}
+
+.resultModal h4 {
+    margin: 10px 0px 10px 0px;
+    padding-bottom: 5px;
+}
+
+.resultModal h4:last-of-type {
+    margin-bottom: 30px;
+}
+
+.resultModal h1 {
+    width: 500px;
+    margin-bottom: 20px;
+}
