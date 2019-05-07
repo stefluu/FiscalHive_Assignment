@@ -27,6 +27,11 @@ export default class Gear extends Component {
         };
     };
 
+    goBackToOngoing = () => {
+      this.props.goPartBack("part1Total");
+      this.props.goBack();
+    }
+
   render() {
 
       let gearItems = [
@@ -67,7 +72,7 @@ export default class Gear extends Component {
         <div className="buttons">
           <button
             className="formButtons" 
-            onClick={() => this.props.goPartBack("part1Total")}
+            onClick={() => this.goBackToOngoing()}
             >Back</button>
 
           <button 
