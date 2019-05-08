@@ -5,7 +5,6 @@ export default class ItemSection extends Component {
         super(props);
         this.total = this.props.data.total;
         this.state = this.props.data.categoriesState;
-        this.threeCol = this.props.threeCol;
     }
 
     setNewPrice = (e, itemId) => {
@@ -16,25 +15,11 @@ export default class ItemSection extends Component {
         };
     };
 
-    // makeThreeCol = () => {
-    //     let threeList = ["Nursery $"];
-    //     if(threeList.includes(this.props.sectionName)) {
-    //         document.getElementById("maybeThree").className = "itemList threeColumns";
-    //     } 
-    // }
-
     render() {
         let sectionName = this.props.sectionName;
         let refName = this.props.refName;
-        
-        // debugger
-        // if(this.threeCol) {
-        //     this.makeThreeCol();
-        //     this.threeCol = false;
-        // }
 
         let sectionItems = Object.values(this.props.data.items);
-        console.log(sectionItems)
         let total = 0;
         for (let i in sectionItems) {
             total += sectionItems[i].price;
@@ -43,14 +28,14 @@ export default class ItemSection extends Component {
         return (
             <div className="itemSection">
                 <p className="sectionName">{sectionName}{total}</p>
-                <ul className="itemList" id="maybeThree">
-                    {sectionItems.map(item => (
-                        <li key={item.id}>
-                            <p className="listItem">{item.item}</p>
+                <ul className="itemList threeColumns" id="maybeThree">
+                    {sectionItems.map(currentItem => (
+                        <li key={currentItem.id}>
+                            <p className="listItem">{currentItem.item}</p>
                             <input
                                 type="text"
-                                defaultValue={item.price}
-                                onChange={e => this.setNewPrice(e, item.id)}
+                                defaultValue={currentItem.price}
+                                onChange={e => this.setNewPrice(e, currentItem.id)}
                             />
                         </li>
                     ))}

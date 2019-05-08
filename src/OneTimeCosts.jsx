@@ -65,87 +65,55 @@ class OneTimeCosts extends Component {
         break;
 
       case 2:
-        // component = (
-        //   <Activity
-        //     data = {this.itemsData.a}
-        //     setPartTotalGoNext={this.setPartTotalGoNext.bind(this)}
-        //     goPartBack = {this.goPartBack.bind(this)}          />
-        // );
-
         component = (
           <ItemSection
             data={this.itemsData.activity}
             refName = "part2Total"
             sectionName = "Activity Equipment $"
-            threeCol = {false}
             setPartTotalGoNext={this.setPartTotalGoNext.bind(this)}
             goPartBack={this.goPartBack.bind(this)} />
         );
         break;
 
       case 3:
-        // component = (
-        //   <Nursery
-        //     setPartTotalGoNext={this.setPartTotalGoNext.bind(this)}
-        //     goPartBack = {this.goPartBack.bind(this)}          />
-        // );
         component = (
           <ItemSection
             data={this.itemsData.nursery}
             refName="part3Total"
             sectionName="Nursery $"
-            threeCol={true}
             setPartTotalGoNext={this.setPartTotalGoNext.bind(this)}
             goPartBack={this.goPartBack.bind(this)} />
         );
         break;
 
       case 4:
-        // component = (
-        //   <Feeding
-        //     setPartTotalGoNext={this.setPartTotalGoNext.bind(this)}
-        //     goPartBack = {this.goPartBack.bind(this)}          />
-        // );
         component = (
           <ItemSection
             data={this.itemsData.feeding}
             refName="part4Total"
             sectionName="Feeding $"
-            // threeCol={true}
             setPartTotalGoNext={this.setPartTotalGoNext.bind(this)}
             goPartBack={this.goPartBack.bind(this)} />
         );
         break;
 
       case 5:
-        // component = (
-        //   <BreastFeeding
-        //     setPartTotalGoNext={this.setPartTotalGoNext.bind(this)}
-        //     goPartBack = {this.goPartBack.bind(this)}          />
-        // );
         component = (
           <ItemSection
             data={this.itemsData.breastfeeding}
             refName="part5Total"
             sectionName="BreastFeeding $"
-            // threeCol={true}
             setPartTotalGoNext={this.setPartTotalGoNext.bind(this)}
             goPartBack={this.goPartBack.bind(this)} />
         );
         break;
 
       case 6:
-        // component = (
-        //   <BathingGrooming
-        //     setPartTotalGoNext={this.setPartTotalGoNext.bind(this)}
-        //     goPartBack = {this.goPartBack.bind(this)}          />
-        // );
         component = (
           <ItemSection
             data={this.itemsData.bathingGrooming}
             refName="part6Total"
             sectionName="Bathing/Grooming $"
-            // threeCol={true}
             setPartTotalGoNext={this.setPartTotalGoNext.bind(this)}
             goPartBack={this.goPartBack.bind(this)} />
         );
