@@ -6,9 +6,13 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 let expandedDetails = {
     animationEnabled: true,
     backgroundColor: "#e2ecfa",
-    title: { text: "Detailed Breakdown"},
+    title: { 
+        text: "Detailed Breakdown",
+        fontFamily: 'Merriweather'
+    },
     data: [{
         type: "pie",
+        indexLabelLineThickness: 3,
         indexLabelFontSize: 16,
         indexLabelFontFamily: 'Merriweather',
         indexLabel: "{y}%",
@@ -19,9 +23,15 @@ let expandedDetails = {
 
 export default class DonutChart extends Component {
 
+    constructor(props){
+        super(props);
+        this.chart = null;
+    }
+
     componentDidMount(){
-        console.log(this.props.ongoingBreakdown)
-        console.log(this.props.oneTimeBreakdown)
+        // debugger
+        // console.log(this.props.ongoingBreakdown)
+        // console.log(this.props.oneTimeBreakdown)
     }
 
     formatData(breakdown, type) {
@@ -33,6 +43,7 @@ export default class DonutChart extends Component {
         }
 
         let pieChartFormat = [];
+
         let colorSet = 
             ["teal", "lightcyan", "paleturquoise", "steelblue", "mediumaquamarine",
                 "skyblue", "cadetblue", "lightblue", "lightskyblue", "#6396BD", "#56D2DB" ];
@@ -42,7 +53,7 @@ export default class DonutChart extends Component {
             let percent = (breakdown[i]/total * 100).toFixed(2);
             let currentColor = colorSet[currentColorNum];
             currentColorNum++;
-            let converted = {y: percent, label: keyStr, color: currentColor };
+            let converted = { y: percent, label: keyStr, color: currentColor, indexLabelBackgroundColor: "lightgray"};
             pieChartFormat.push(converted);
             // console.log(pieChartFormat)
             // debugger
@@ -52,9 +63,17 @@ export default class DonutChart extends Component {
     }
 
     drillDown(e) {
+        // debugger
+        // let oldData = this;
+        // let type = e.dataPoint.name;
+        // oldData = expandedDetails;
+
+
         let newOptions = e.chart.options[e.dataPoint.name];
         let chart = e.chart;
+        // debugger
         chart.options = expandedDetails;
+        // debugger
         chart.options.data[0].dataPoints = newOptions[0].dataPoints;
         chart.render();
     }
@@ -64,8 +83,8 @@ export default class DonutChart extends Component {
     let pieChartOngoingData = this.formatData(this.props.ongoingBreakdown, "ongoing");
     let pieChartOneTimeData = this.formatData(this.props.oneTimeBreakdown, "oneTime");
 
-    console.log("ongoing", pieChartOngoingData);
-    console.log("onetime", pieChartOneTimeData);
+    // console.log("ongoing", pieChartOngoingData);
+    // console.log("onetime", pieChartOneTimeData);
 
       let total = this.props.data.reduce((accum, num) => {return accum += num});
       let ongoingVal = (this.props.data[0]/total) * 100;
@@ -98,13 +117,20 @@ export default class DonutChart extends Component {
               name: "Ongoing Total",
               type: "pie",
               dataPoints: pieChartOngoingData
-          }] 
+          }],
+          
+          "One Time Total": [{
+              name: "One Time Total",
+              type: "pie",
+              dataPoints: pieChartOneTimeData
+          }]
       }
     return (
       <div>
         <CanvasJSChart 
             options={options}
             onRef={ref => this.chart = ref} />
+            {/* onRef={ref => console.log("ref", ref)} /> */}
 
         <button className="button invisible">Back</button>
       </div>

@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 
 export default class Childcare extends Component {
     state = {
-        perMonth: 316
+        perMonth: 316,
+        noChildcare: false,
+        estimateChildcare: false,
+        exactChildcare: false
     };
 
     setPerMonth = (e) => {
@@ -44,6 +47,7 @@ export default class Childcare extends Component {
             <li>
                 <input
                     type="radio"
+                    name="childCare"
                     onClick={() => this.props.update("childcare", 0)}
                 >
                 </input>
@@ -53,6 +57,7 @@ export default class Childcare extends Component {
             <li>
                  <input
                     type="radio"
+                    name="childCare"
                 />
                 Help me estimate. I'll use a:
                 <br />
@@ -78,6 +83,7 @@ export default class Childcare extends Component {
             <li>
                 <input
                     type="radio"
+                    name="childCare"
                 />
                 I know exactly. I'll spend:
                 <br />

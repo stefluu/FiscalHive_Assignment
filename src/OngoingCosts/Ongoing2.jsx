@@ -8,19 +8,26 @@ export default class Ongoing2 extends Component {
     };
 
     handleItem = (id, selectId, perMonth, monthCount) => {
-        if (document.getElementById(id).checked) {
-            if (perMonth && monthCount) {
-                let perMonthVal = document.getElementById(perMonth).value;
-                let monthCountVal = document.getElementById(monthCount).value;
-                this.addItem(id, perMonthVal, monthCountVal);
+        let idEle = document.getElementById(id);
+        let selectIdEle = document.getElementById(selectId);
+
+        if(idEle) {
+            if (idEle.checked) {
+                if (perMonth && monthCount) {
+                    let perMonthVal = document.getElementById(perMonth).value;
+                    let monthCountVal = document.getElementById(monthCount).value;
+                    this.addItem(id, perMonthVal, monthCountVal);
+                } else {
+                    if(selectIdEle) {
+                        let val = selectIdEle.value;
+                        this.add12MonthItem(id, val);
+                    }
+                }
+                
             } else {
-                let val = document.getElementById(selectId).value;
-                this.add12MonthItem(id, val);
-            }
-            
-        } else {
-            this.removeItem(id);
-        };
+                this.removeItem(id);
+            };
+        }
     };
 
     addItem = (id, perMonth, monthCount) => {
