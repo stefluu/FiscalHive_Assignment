@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import Data from '../AllData';
 
 export default class Gear extends Component {
     constructor(props){
@@ -18,6 +19,10 @@ export default class Gear extends Component {
             g11: 50
         }
     } 
+
+    componentDidMount(){
+      console.log(Data);
+    }
 
     setNewPrice = (e, itemId) => {
         if(e.target.value){
