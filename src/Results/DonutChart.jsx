@@ -7,14 +7,10 @@ let expandedDetails = {
     animationEnabled: true,
     backgroundColor: "#e2ecfa",
     title: { text: "Detailed Breakdown"},
-    legend: {
-        horizontalAlign: "left",
-        verticalAlign: "center"
-    },
     data: [{
         type: "pie",
-        showInLegend: true,
-        legendText: "{label}",
+        indexLabelFontSize: 16,
+        indexLabelFontFamily: 'Merriweather',
         indexLabel: "{y}%",
         indexLabelPlacement: "outside",
         dataPoints: []
@@ -37,11 +33,16 @@ export default class DonutChart extends Component {
         }
 
         let pieChartFormat = [];
-
+        let colorSet = 
+            ["teal", "lightcyan", "paleturquoise", "steelblue", "mediumaquamarine",
+                "skyblue", "cadetblue", "lightblue", "lightskyblue", "#6396BD", "#56D2DB" ];
+        let currentColorNum = 0;
         for(let i in breakdown) {
             let keyStr = i.toString().toUpperCase();
             let percent = (breakdown[i]/total * 100).toFixed(2);
-            let converted = {y: percent, label: keyStr };
+            let currentColor = colorSet[currentColorNum];
+            currentColorNum++;
+            let converted = {y: percent, label: keyStr, color: currentColor };
             pieChartFormat.push(converted);
             // console.log(pieChartFormat)
             // debugger
@@ -104,6 +105,8 @@ export default class DonutChart extends Component {
         <CanvasJSChart 
             options={options}
             onRef={ref => this.chart = ref} />
+
+        <button className="button invisible">Back</button>
       </div>
     )
   }
