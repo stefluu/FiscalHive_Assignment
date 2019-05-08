@@ -3,14 +3,16 @@ import React, { Component } from 'react';
 export default class Activity extends Component {
     constructor(props) {
         super(props);
-        this.total = 310;
-        this.state = {
-            a1: 100,
-            a2: 40,
-            a3: 80,
-            a4: 50,
-            a5: 40,
-        }
+        // this.total = 310;
+        // this.state = {
+        //     a1: 100,
+        //     a2: 40,
+        //     a3: 80,
+        //     a4: 50,
+        //     a5: 40,
+        // }
+        this.total = this.props.data.total;
+        this.state = this.props.data.categoriesState;
     }
 
     setNewPrice = (e, itemId) => {
@@ -22,14 +24,15 @@ export default class Activity extends Component {
     };
 
     render() {
+      let activityItems = Object.values(this.props.data.items);
 
-        let activityItems = [
-            { id: "a1", item: "Swing ($85 - $120)", price: 100 },
-            { id: "a2", item: "Bouncer/bouncy seat ($30 - $70)", price: 40 },
-            { id: "a3", item: "Activity center ($70 - $80)", price: 80 },
-            { id: "a4", item: "Play mat/gym ($25 - $80)", price: 50 },
-            { id: "a5", item: "Doorway jumper ($30 - $40)", price: 40 }
-        ];
+        // let activityItems = [
+        //     { id: "a1", item: "Swing ($85 - $120)", price: 100 },
+        //     { id: "a2", item: "Bouncer/bouncy seat ($30 - $70)", price: 40 },
+        //     { id: "a3", item: "Activity center ($70 - $80)", price: 80 },
+        //     { id: "a4", item: "Play mat/gym ($25 - $80)", price: 50 },
+        //     { id: "a5", item: "Doorway jumper ($30 - $40)", price: 40 }
+        // ];
 
         let total = 0;
         for (let i in this.state) {

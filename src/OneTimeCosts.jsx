@@ -7,6 +7,7 @@ import Feeding from './OneTimeCosts/Feeding';
 import BreastFeeding from './OneTimeCosts/BreastFeeding';
 import BathingGrooming from './OneTimeCosts/BathingGrooming';
 import Other from './OneTimeCosts/Other';
+import Data from './AllData';
 
 class OneTimeCosts extends Component {
   constructor(props){
@@ -22,6 +23,7 @@ class OneTimeCosts extends Component {
       part6Total: 0,
       part7Total: 0
     };
+    this.itemsData = Data.allData;
   }
 
 
@@ -54,6 +56,7 @@ class OneTimeCosts extends Component {
       case 1:
         component = (
           <Gear
+            data = {this.itemsData.g}
             setPartTotalGoNext={this.setPartTotalGoNext.bind(this)}
             goBack={this.props.goBack}
             goPartBack = {this.goPartBack.bind(this)}          />
@@ -63,6 +66,7 @@ class OneTimeCosts extends Component {
       case 2:
         component = (
           <Activity
+            data = {this.itemsData.a}
             setPartTotalGoNext={this.setPartTotalGoNext.bind(this)}
             goPartBack = {this.goPartBack.bind(this)}          />
         );
