@@ -37,6 +37,7 @@ export default class OngoingCosts extends Component {
       for(let i in this.state){
           total += this.state[i];
       };
+      console.log(total);
 
     return (
       <div>

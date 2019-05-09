@@ -15,7 +15,7 @@ let expandedDetails = {
         indexLabelLineThickness: 3,
         indexLabelFontSize: 16,
         indexLabelFontFamily: 'Merriweather',
-        indexLabel: "{y}%",
+        indexLabel: "{name}: {y}%",
         indexLabelPlacement: "outside",
         dataPoints: []
     }]
@@ -25,21 +25,30 @@ export default class DonutChart extends Component {
 
     constructor(props){
         super(props);
-        this.chart = null;
+        this.twoBreakdown = null;
     }
 
     componentDidMount(){
-        // debugger
-        // console.log(this.props.ongoingBreakdown)
-        // console.log(this.props.oneTimeBreakdown)
+        let originalOptions = this.chart.options;
+        this.twoBreakdown = originalOptions;
+        // let chart = this.chart;
+        // let options = this.chart.options["donutChart"][0];
+        // chart.options.data = options.data[0].dataPoints;
+        // // debugger
+        // chart.render();
     }
 
     formatData(breakdown, type) {
         let total;
+        let labelNames;
         if(type === "ongoing") {
             total = this.props.data[0];
+            labelNames = Object.keys(breakdown).map((name) => {return name.slice(0,1).toUpperCase() + name.slice(1)})
+            debugger
         } else {
             total = this.props.data[1];
+            labelNames = ["Gear", "Activity Equipment", "Nursery", "Feeding", "Breastfeeding", "Bathing/Grooming", "Other"];
+            debugger
         }
 
         let pieChartFormat = [];
@@ -47,18 +56,26 @@ export default class DonutChart extends Component {
         let colorSet = 
             ["teal", "lightcyan", "paleturquoise", "steelblue", "mediumaquamarine",
                 "skyblue", "cadetblue", "lightblue", "lightskyblue", "#6396BD", "#56D2DB" ];
-        let currentColorNum = 0;
+
+        let currentCountNum = 0;
         for(let i in breakdown) {
             let keyStr = i.toString().toUpperCase();
             let percent = (breakdown[i]/total * 100).toFixed(2);
-            let currentColor = colorSet[currentColorNum];
-            currentColorNum++;
-            let converted = { y: percent, label: keyStr, color: currentColor, indexLabelBackgroundColor: "lightgray"};
-            pieChartFormat.push(converted);
-            // console.log(pieChartFormat)
-            // debugger
+            
+            let currentColor = colorSet[currentCountNum];
+            let name = labelNames[currentCountNum];
+            
+            let converted = { 
+                name: name, 
+                y: percent, 
+                label: keyStr, 
+                color: currentColor, 
+                indexLabelFontColor: "black"};
+                
+                pieChartFormat.push(converted);
+                
+            currentCountNum++;
         }
-        // console.log("final", pieChartFormat)
         return pieChartFormat;
     }
 
@@ -67,7 +84,8 @@ export default class DonutChart extends Component {
         // let oldData = this;
         // let type = e.dataPoint.name;
         // oldData = expandedDetails;
-
+        let backButton = document.getElementById("pieChartBackBtn");
+        backButton.style.display = "block";
 
         let newOptions = e.chart.options[e.dataPoint.name];
         let chart = e.chart;
@@ -78,52 +96,58 @@ export default class DonutChart extends Component {
         chart.render();
     }
 
+    backUp(e) {
+        let backButton = document.getElementById("pieChartBackBtn");
+        backButton.style.display = "none";
+        let chart = this.chart;
+        chart.options = this.twoBreakdown;
+        chart.render();
+    }
+
   render() {
 
     let pieChartOngoingData = this.formatData(this.props.ongoingBreakdown, "ongoing");
     let pieChartOneTimeData = this.formatData(this.props.oneTimeBreakdown, "oneTime");
-
-    // console.log("ongoing", pieChartOngoingData);
-    // console.log("onetime", pieChartOneTimeData);
 
       let total = this.props.data.reduce((accum, num) => {return accum += num});
       let ongoingVal = (this.props.data[0]/total) * 100;
       let oneTimeVal = (this.props.data[1]/total) * 100;
 
       const options = {
-          animationEnabled: true,
-          backgroundColor: "#e2ecfa",
-          subtitles: [{
-              text: "Click to expand section",
-              verticalAlign: "center",
-              fontSize: 16,
-              fontFamily: 'Merriweather',
-              dockInsidePlotArea: true
-          }],
+        animationEnabled: true,
+        backgroundColor: "#e2ecfa",
+        subtitles: [{
+            text: "Click to expand section",
+            verticalAlign: "center",
+            fontSize: 16,
+            fontFamily: 'Merriweather',
+            dockInsidePlotArea: true
+        }],
+    
+        data: [{
+            type: "doughnut",
+            click: this.drillDown,
+            showInLegend: true,
+            indexLabel: "{name}: {y}",
+            indexLabelLineThickness: 3,
+            yValueFormatString: "#.###'%'",
+            dataPoints: [
+                { name: "Ongoing Total", y: ongoingVal, color: "teal"},
+                { name: "One Time Total", y: oneTimeVal, color: "steelblue"} 
+            ]
+        }],
 
-          data: [{
-              type: "doughnut",
-              click: this.drillDown,
-              showInLegend: true,
-              indexLabel: "{name}: {y}",
-              yValueFormatString: "#.###'%'",
-              dataPoints: [
-                  { name: "Ongoing Total", y: ongoingVal, color: "teal"},
-                  { name: "One Time Total", y: oneTimeVal, color: "#b5e6fc"} 
-              ]
-          }],
-
-          "Ongoing Total": [{
-              name: "Ongoing Total",
-              type: "pie",
-              dataPoints: pieChartOngoingData
-          }],
-          
-          "One Time Total": [{
-              name: "One Time Total",
-              type: "pie",
-              dataPoints: pieChartOneTimeData
-          }]
+        "Ongoing Total": [{
+            name: "Ongoing Total",
+            type: "pie",
+            dataPoints: pieChartOngoingData
+        }],
+    
+        "One Time Total": [{
+            name: "One Time Total",
+            type: "pie",
+            dataPoints: pieChartOneTimeData
+        }]
       }
     return (
       <div>
@@ -132,7 +156,11 @@ export default class DonutChart extends Component {
             onRef={ref => this.chart = ref} />
             {/* onRef={ref => console.log("ref", ref)} /> */}
 
-        <button className="button invisible">Back</button>
+        <button 
+            className="formButtons" 
+            id="pieChartBackBtn"
+            onClick={(e) => this.backUp(e)}>
+            Back to Previous Breakdown</button>
       </div>
     )
   }

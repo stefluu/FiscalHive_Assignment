@@ -11,11 +11,16 @@ export default class Childcare extends Component {
     setPerMonth = (e) => {
         this.setState({perMonth: parseInt(e.target.value)});
     };
+    
 
     getNewChildcareVal = (e) => {
         let newVal = e.target.value * this.state.perMonth;
         this.props.update("childcare", newVal);
     };
+
+    removeChildcare = () => {
+        this.props.update("childcare", 0);
+    }
 
     handleBabysitting = () =>{
         if(document.getElementById("babysittingCheckbox").checked){
@@ -58,6 +63,8 @@ export default class Childcare extends Component {
                  <input
                     type="radio"
                     name="childCare"
+                    // checked
+                    onChange={() => this.getNewChildcareVal}
                 />
                 Help me estimate. I'll use a:
                 <br />

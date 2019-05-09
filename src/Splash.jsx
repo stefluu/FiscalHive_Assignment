@@ -33,7 +33,7 @@ export default class Splash extends Component {
         <button 
             className="getStarted"
             onClick = {this.onOpenModal}
-        >Get Started
+        >Let's Plan!
         </button>
 
         <Modal 
