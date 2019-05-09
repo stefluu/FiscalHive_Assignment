@@ -2,24 +2,92 @@ import React, { Component } from 'react';
 
 export default class Childcare extends Component {
     state = {
-        perMonth: 316,
-        noChildcare: false,
-        estimateChildcare: false,
-        exactChildcare: false
+        // perMonth: 316,
+        // // noChildcare: false,
+        // // estimateChildcare: false,
+        // // exactChildcare: false
+        // numMonths: 6,
+        // // prevChildcareCost: 1896,
+        // // valDiff: 0
+        estimateChildcare: [316, 6],
+        exactChildcare: [0, 6]
     };
 
-    setPerMonth = (e) => {
-        this.setState({perMonth: parseInt(e.target.value)});
+    setPerMonth = (type, e) => {
+
+        this.changeToChecked();
+
+        let submittedVal = parseInt(e.target.value);
+        if(!submittedVal){
+            submittedVal = 0;
+        }
+        if(type === "estimateChildcare") {
+            let months = this.state.estimateChildcare[1];
+            this.setState({ estimateChildcare: [submittedVal, months] }, () => this.getNewChildcareVal());
+        } else {
+            debugger
+            let months = this.state.exactChildcare[1];
+            this.setState({ exactChildcare: [submittedVal, months] }, () => this.getNewChildcareVal());
+        }
+        // this.getNewChildcareVal();
+
+        // this.setState({perMonth: parseInt(e.target.value)});
     };
+
+    setNumMonths = (type, e) => {
+
+        this.changeToChecked();
+
+        let submittedMonths = parseInt(e.target.value);
+        if (!submittedMonths) {
+            submittedMonths = 0;
+        }
+
+        if (type === "estimateChildcare") {
+            let perMonths = this.state.estimateChildcare[0];
+            this.setState({ estimateChildcare: [perMonths, submittedMonths] }, () => this.getNewChildcareVal());
+        } else {
+            let perMonths = this.state.exactChildcare[0];
+            this.setState({ exactChildcare: [perMonths, submittedMonths] }, () => this.getNewChildcareVal());
+        }
+
+        // this.getNewChildcareVal();
+
+    }
+
+    changeToChecked = (type) => {
+        let estimateCC = document.getElementById("estimateChildcare");
+        let exactCC = document.getElementById("exactChildcare");
+
+        if(type === "estimateChildcare") {
+            estimateCC.checked = true;
+        } else {
+            exactCC.checked = true;
+        }
+    }
     
 
-    getNewChildcareVal = (e) => {
-        let newVal = e.target.value * this.state.perMonth;
-        this.props.update("childcare", newVal);
-    };
+    // getNewChildcareVal = (e) => {
+    //     let newVal = e.target.value * this.state.perMonth;
+    //     this.props.update("childcare", newVal);
+    // };
 
-    removeChildcare = () => {
-        this.props.update("childcare", 0);
+    // removeChildcare = () => {
+    //     this.props.update("childcare", 0);
+    // }
+
+    getNewChildcareVal = () => {
+        let estimateCC = document.getElementById("estimateChildcare");
+        let exactCC = document.getElementById("exactChildcare");
+        let newVal;
+        
+
+        if (estimateCC.checked) {
+            newVal = this.state.estimateChildcare[0] * this.state.estimateChildcare[1];
+        } else if(exactCC.checked) {
+            newVal = this.state.exactChildcare[0] * this.state.exactChildcare[1];
+        }
+        this.props.update("childcare", newVal);
     }
 
     handleBabysitting = () =>{
@@ -53,7 +121,7 @@ export default class Childcare extends Component {
                 <input
                     type="radio"
                     name="childCare"
-                    onClick={() => this.props.update("childcare", 0)}
+                    onClick={() => this.props.remove("childcare")}
                 >
                 </input>
                 I won't be paying for regular childcare.
@@ -63,8 +131,9 @@ export default class Childcare extends Component {
                  <input
                     type="radio"
                     name="childCare"
-                    // checked
-                    onChange={() => this.getNewChildcareVal}
+                    id="estimateChildcare"
+                    defaultChecked
+                    onChange={this.getNewChildcareVal}
                 />
                 Help me estimate. I'll use a:
                 <br />
@@ -75,7 +144,7 @@ export default class Childcare extends Component {
                     <option>Nanny</option>
                 </select>
 
-                <select onChange={this.setPerMonth}>
+                <select onChange={(e) => this.setPerMonth("estimateChildcare", e)}>
                     <option value="316">Low: $316/month</option>
                     <option value="768">Moderate: $768/month</option>
                     <option value="1221">High: $1221/month</option>
@@ -83,7 +152,7 @@ export default class Childcare extends Component {
                 <input 
                     type="text" 
                     defaultValue="6"
-                    onChange={this.getNewChildcareVal}
+                    onChange={(e) => this.setNumMonths("estimateChildcare", e)}
                 /> X months
             </li>
 
@@ -91,17 +160,20 @@ export default class Childcare extends Component {
                 <input
                     type="radio"
                     name="childCare"
+                    id="exactChildcare"
+                    onChange={this.getNewChildcareVal}
                 />
                 I know exactly. I'll spend:
                 <br />
                 <input 
                     type="text"
                     defaultValue="0"
-                    onChange={this.setPerMonth} /> 
+                    onChange={(e) => this.setPerMonth("exactChildcare", e)} /> 
                 <input 
                     type="text" 
                     defaultValue="6"
-                    onChange={this.getNewChildcareVal} /> X months
+                    onChange={(e) => this.setNumMonths("estimateChildcare", e)} 
+                /> X months
             </li>
 
             <li>

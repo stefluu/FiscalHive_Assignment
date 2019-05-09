@@ -31,6 +31,7 @@ export default class Ongoing2 extends Component {
     };
 
     addItem = (id, perMonth, monthCount) => {
+        debugger
         document.getElementById(id).checked = true;
         let newVal = perMonth * monthCount;
         this.props.update(id, newVal);
