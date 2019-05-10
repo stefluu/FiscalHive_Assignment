@@ -2,13 +2,6 @@ import React, { Component } from 'react';
 
 export default class Childcare extends Component {
     state = {
-        // perMonth: 316,
-        // // noChildcare: false,
-        // // estimateChildcare: false,
-        // // exactChildcare: false
-        // numMonths: 6,
-        // // prevChildcareCost: 1896,
-        // // valDiff: 0
         estimateChildcare: [316, 6],
         exactChildcare: [0, 6]
     };
@@ -25,13 +18,9 @@ export default class Childcare extends Component {
             let months = this.state.estimateChildcare[1];
             this.setState({ estimateChildcare: [submittedVal, months] }, () => this.getNewChildcareVal());
         } else {
-            debugger
             let months = this.state.exactChildcare[1];
             this.setState({ exactChildcare: [submittedVal, months] }, () => this.getNewChildcareVal());
         }
-        // this.getNewChildcareVal();
-
-        // this.setState({perMonth: parseInt(e.target.value)});
     };
 
     setNumMonths = (type, e) => {
@@ -51,8 +40,6 @@ export default class Childcare extends Component {
             this.setState({ exactChildcare: [perMonths, submittedMonths] }, () => this.getNewChildcareVal());
         }
 
-        // this.getNewChildcareVal();
-
     }
 
     changeToChecked = (type) => {
@@ -65,16 +52,7 @@ export default class Childcare extends Component {
             exactCC.checked = true;
         }
     }
-    
 
-    // getNewChildcareVal = (e) => {
-    //     let newVal = e.target.value * this.state.perMonth;
-    //     this.props.update("childcare", newVal);
-    // };
-
-    // removeChildcare = () => {
-    //     this.props.update("childcare", 0);
-    // }
 
     getNewChildcareVal = () => {
         let estimateCC = document.getElementById("estimateChildcare");

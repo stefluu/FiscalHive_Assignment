@@ -33,7 +33,7 @@ class OneTimeCosts extends Component {
     this.part += 1;
     
     if(partNumTotal === "part7Total"){
-      this.finishOneTimeTotal(total, this.state);
+      this.finishOneTimeTotal(total);
     }
   };
   
@@ -42,12 +42,13 @@ class OneTimeCosts extends Component {
     this.part -= 1;
   };
 
-  finishOneTimeTotal = (total, breakdown) => {
+  finishOneTimeTotal = (total) => {
     let finalTotal = total;
     for(let i in this.state){
       finalTotal += this.state[i];
     };
-    this.props.setTotal("oneTimeTotal", finalTotal, breakdown);
+    this.props.setTotal("oneTimeTotal", finalTotal, this.state);
+    this.props.goNext();
   }
 
   render() {
@@ -122,10 +123,9 @@ class OneTimeCosts extends Component {
       case 7:
         component = (
           <Other
-            data={this.itemsData.gear}
+            data={this.itemsData.other}
             setPartTotalGoNext={this.setPartTotalGoNext.bind(this)}
-            goPartBack = {this.goPartBack.bind(this)}
-            closeModal = {this.props.closeModal}          />
+            goPartBack = {this.goPartBack.bind(this)}  />
         );
         break;
 

@@ -41,7 +41,7 @@ export default class Splash extends Component {
           onClose={this.onCloseModal} 
           styles={modalStyle}
           center>
-            <Form closeModal={this.onCloseModal.bind(this)}/>
+            <Form />
         </Modal>
         
       </div>

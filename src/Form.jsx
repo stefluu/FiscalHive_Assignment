@@ -53,7 +53,6 @@ export default class Form extends Component {
             goNext={this.goNext.bind(this)}
             goBack={this.goBack.bind(this)}
             setTotal={this.setTotal.bind(this)}
-            closeModal={this.props.closeModal}
           />
         );
         break;

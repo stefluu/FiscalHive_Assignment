@@ -31,11 +31,6 @@ export default class DonutChart extends Component {
     componentDidMount(){
         let originalOptions = this.chart.options;
         this.twoBreakdown = originalOptions;
-        // let chart = this.chart;
-        // let options = this.chart.options["donutChart"][0];
-        // chart.options.data = options.data[0].dataPoints;
-        // // debugger
-        // chart.render();
     }
 
     formatData(breakdown, type) {
@@ -44,11 +39,9 @@ export default class DonutChart extends Component {
         if(type === "ongoing") {
             total = this.props.data[0];
             labelNames = Object.keys(breakdown).map((name) => {return name.slice(0,1).toUpperCase() + name.slice(1)})
-            debugger
         } else {
             total = this.props.data[1];
             labelNames = ["Gear", "Activity Equipment", "Nursery", "Feeding", "Breastfeeding", "Bathing/Grooming", "Other"];
-            debugger
         }
 
         let pieChartFormat = [];
@@ -59,7 +52,6 @@ export default class DonutChart extends Component {
 
         let currentCountNum = 0;
         for(let i in breakdown) {
-            let keyStr = i.toString().toUpperCase();
             let percent = (breakdown[i]/total * 100).toFixed(2);
             
             let currentColor = colorSet[currentCountNum];
@@ -68,7 +60,7 @@ export default class DonutChart extends Component {
             let converted = { 
                 name: name, 
                 y: percent, 
-                label: keyStr, 
+                label: name, 
                 color: currentColor, 
                 indexLabelFontColor: "black"};
                 
@@ -80,18 +72,12 @@ export default class DonutChart extends Component {
     }
 
     drillDown(e) {
-        // debugger
-        // let oldData = this;
-        // let type = e.dataPoint.name;
-        // oldData = expandedDetails;
         let backButton = document.getElementById("pieChartBackBtn");
         backButton.style.display = "block";
 
         let newOptions = e.chart.options[e.dataPoint.name];
         let chart = e.chart;
-        // debugger
         chart.options = expandedDetails;
-        // debugger
         chart.options.data[0].dataPoints = newOptions[0].dataPoints;
         chart.render();
     }
@@ -154,7 +140,6 @@ export default class DonutChart extends Component {
         <CanvasJSChart 
             options={options}
             onRef={ref => this.chart = ref} />
-            {/* onRef={ref => console.log("ref", ref)} /> */}
 
         <button 
             className="formButtons" 
