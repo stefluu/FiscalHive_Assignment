@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Gear from './OneTimeCosts/Gear';
-import Activity from './OneTimeCosts/Activity';
-import Nursery from './OneTimeCosts/Nursery';
-import Feeding from './OneTimeCosts/Feeding';
-import BreastFeeding from './OneTimeCosts/BreastFeeding';
-import BathingGrooming from './OneTimeCosts/BathingGrooming';
+import ItemSection from './OneTimeCosts/ItemSection';
+// import Activity from './OneTimeCosts/Activity';
+// import Nursery from './OneTimeCosts/Nursery';
+// import Feeding from './OneTimeCosts/Feeding';
+// import BreastFeeding from './OneTimeCosts/BreastFeeding';
+// import BathingGrooming from './OneTimeCosts/BathingGrooming';
 import Other from './OneTimeCosts/Other';
+import Data from './AllData';
 
 class OneTimeCosts extends Component {
   constructor(props){
@@ -22,6 +24,7 @@ class OneTimeCosts extends Component {
       part6Total: 0,
       part7Total: 0
     };
+    this.itemsData = Data.allData;
   }
 
 
@@ -30,7 +33,7 @@ class OneTimeCosts extends Component {
     this.part += 1;
     
     if(partNumTotal === "part7Total"){
-      this.finishOneTimeTotal(total, this.state);
+      this.finishOneTimeTotal(total);
     }
   };
   
@@ -39,12 +42,13 @@ class OneTimeCosts extends Component {
     this.part -= 1;
   };
 
-  finishOneTimeTotal = (total, breakdown) => {
+  finishOneTimeTotal = (total) => {
     let finalTotal = total;
     for(let i in this.state){
       finalTotal += this.state[i];
     };
-    this.props.setTotal("oneTimeTotal", finalTotal, breakdown);
+    this.props.setTotal("oneTimeTotal", finalTotal, this.state);
+    this.props.goNext();
   }
 
   render() {
@@ -54,6 +58,7 @@ class OneTimeCosts extends Component {
       case 1:
         component = (
           <Gear
+            data = {this.itemsData.gear}
             setPartTotalGoNext={this.setPartTotalGoNext.bind(this)}
             goBack={this.props.goBack}
             goPartBack = {this.goPartBack.bind(this)}          />
@@ -62,50 +67,65 @@ class OneTimeCosts extends Component {
 
       case 2:
         component = (
-          <Activity
+          <ItemSection
+            data={this.itemsData.activity}
+            refName = "part2Total"
+            sectionName = "Activity Equipment $"
             setPartTotalGoNext={this.setPartTotalGoNext.bind(this)}
-            goPartBack = {this.goPartBack.bind(this)}          />
+            goPartBack={this.goPartBack.bind(this)} />
         );
         break;
 
       case 3:
         component = (
-          <Nursery
+          <ItemSection
+            data={this.itemsData.nursery}
+            refName="part3Total"
+            sectionName="Nursery $"
             setPartTotalGoNext={this.setPartTotalGoNext.bind(this)}
-            goPartBack = {this.goPartBack.bind(this)}          />
+            goPartBack={this.goPartBack.bind(this)} />
         );
         break;
 
       case 4:
         component = (
-          <Feeding
+          <ItemSection
+            data={this.itemsData.feeding}
+            refName="part4Total"
+            sectionName="Feeding $"
             setPartTotalGoNext={this.setPartTotalGoNext.bind(this)}
-            goPartBack = {this.goPartBack.bind(this)}          />
+            goPartBack={this.goPartBack.bind(this)} />
         );
         break;
 
       case 5:
         component = (
-          <BreastFeeding
+          <ItemSection
+            data={this.itemsData.breastfeeding}
+            refName="part5Total"
+            sectionName="BreastFeeding $"
             setPartTotalGoNext={this.setPartTotalGoNext.bind(this)}
-            goPartBack = {this.goPartBack.bind(this)}          />
+            goPartBack={this.goPartBack.bind(this)} />
         );
         break;
 
       case 6:
         component = (
-          <BathingGrooming
+          <ItemSection
+            data={this.itemsData.bathingGrooming}
+            refName="part6Total"
+            sectionName="Bathing/Grooming $"
             setPartTotalGoNext={this.setPartTotalGoNext.bind(this)}
-            goPartBack = {this.goPartBack.bind(this)}          />
+            goPartBack={this.goPartBack.bind(this)} />
         );
         break;
 
       case 7:
         component = (
           <Other
+            data={this.itemsData.other}
             setPartTotalGoNext={this.setPartTotalGoNext.bind(this)}
-            goPartBack = {this.goPartBack.bind(this)}
-            closeModal = {this.props.closeModal}          />
+            goPartBack = {this.goPartBack.bind(this)}  />
         );
         break;
 

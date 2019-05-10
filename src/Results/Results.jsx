@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import ReactSvgPieChart from "react-svg-piechart";
+// import ReactSvgPieChart from "react-svg-piechart";
+import DonutChart from "./DonutChart";
 import OnGoingBreakdown from "./ongoingBreakdown";
 import OneTimeBreakdown from "./oneTimeBreakdown";
 
@@ -23,10 +24,12 @@ export default class Results extends Component {
       let ongoingTotal = this.props.location.state.finalState.ongoingTotal;
       let oneTimeTotal = this.props.location.state.finalState.oneTimeTotal;
   
-      const data = [
-        { title: "ongoingTotal", value: ongoingTotal, color: "teal"},
-        { title: "oneTimeTotal", value: oneTimeTotal, color: "#b5e6fc"}
-      ]
+      // const data = [
+      //   { title: "ongoingTotal", value: ongoingTotal, color: "teal"},
+      //   { title: "oneTimeTotal", value: oneTimeTotal, color: "#b5e6fc"}
+      // ]
+
+      const data = [ongoingTotal, oneTimeTotal];
       return (
         <div className="resultsPage">
           <div className="resultsTop">
@@ -36,10 +39,15 @@ export default class Results extends Component {
           <br />
   
           <div className="resultsMain">
-              <ReactSvgPieChart 
+              {/* <ReactSvgPieChart 
                   data= {data}
                   expandOnHover = {true}
-              />
+              /> */}
+              <DonutChart 
+                data={data}
+                ongoingBreakdown={this.props.location.state.finalState.ongoingBreakdown}
+                oneTimeBreakdown={this.props.location.state.finalState.oneTimeBreakdown}
+                />
   
               <div className="breakdownContainer">
                 <OnGoingBreakdown

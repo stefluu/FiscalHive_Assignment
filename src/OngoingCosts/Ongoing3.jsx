@@ -3,12 +3,18 @@ import React, { Component } from 'react';
 export default class Ongoing3 extends Component {
 
     handleItem = (id, selectId) => {
-        if (document.getElementById(id).checked) {
-            let val = document.getElementById(selectId).value;
-            this.add12MonthItem(id, val);
-        } else {
-            this.removeItem(id);
-        };
+        let idEle = document.getElementById(id);
+        let selectIdEle = document.getElementById(selectId);
+        if(idEle) {
+            if (idEle.checked) {
+                if(selectIdEle){
+                    let val = document.getElementById(selectId).value;
+                    this.add12MonthItem(id, val);
+                }
+            } else {
+                this.removeItem(id);
+            };
+        }
     };
 
     add12MonthItem = (id, val) => {
